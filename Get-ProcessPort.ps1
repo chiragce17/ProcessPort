@@ -1,4 +1,4 @@
-﻿function Get-ProcessPorts {
+function Get-ProcessPorts {
      
    [cmdletbinding()]
    Param(
@@ -19,7 +19,7 @@
       try {
         
          Write-Verbose "Processes to get the port information"      
-         $processes = Get-Process $ProcessName  
+         $processes = Get-Process $ProcessName  -ErrorAction Ignore
 
          foreach ($proc in $processes) {
              
@@ -60,14 +60,14 @@
             }  #If loop ends 
             
             else {
-               Write-Host "`n$ProcessName doesn't have any active ports" -BackgroundColor DarkRed
-               break
+               Write-Host "`nProcess $($Proc.Name) with PID : $($proc.ID) doesn't have any active ports" -BackgroundColor DarkRed
+              
             }
              
            
          } #Foreach loop ends 
 
-         $portout | ft -AutoSize
+         $portout |  ft -AutoSize
 
       } #Try block ends
 
@@ -82,3 +82,4 @@
       Write-Verbose "End of the program"
    }
 }
+
